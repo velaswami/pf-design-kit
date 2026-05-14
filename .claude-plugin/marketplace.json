@@ -1,0 +1,25 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "pfdesign",
+  "description": "Prismforce design system skills for Claude Code.",
+  "owner": {
+    "name": "Prismforce"
+  },
+  "plugins": [
+    {
+      "name": "pfdesign",
+      "description": "Build production-grade UI using the Prismforce design system. Fonts, colors, spacing, elevation, and roundness locked to PF tokens.",
+      "author": {
+        "name": "Prismforce"
+      },
+      "category": "productivity",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/velaswami/pfdesign.git",
+        "path": ".",
+        "ref": "main"
+      },
+      "homepage": "https://github.com/velaswami/pfdesign"
+    }
+  ]
+}
