@@ -1,7 +1,7 @@
 {
   "name": "pfdesign",
-  "version": "1.0.0",
-  "description": "Build production-grade UI using the Prismforce design system. Fonts, colors, spacing, elevation, and roundness locked to PF tokens.",
+  "version": "1.1.0",
+  "description": "Prismforce design system with design tokens, brand assets, and UI guidelines. Use /pf-design-kit to build production-grade outputs on-brand.",
   "author": {
     "name": "Prismforce"
   }
