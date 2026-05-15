@@ -1,11 +1,9 @@
 ---
 name: pf-design-kit
+description: "Use this skill any time you're building branded outputs for Prismforce. This includes: frontend interfaces, components, and websites; landing pages, one-pagers, and product sheets; presentations, slide decks, and pitch decks; documents, reports, guides, and brochures; spreadsheets and data tables; social media cards and any branded digital or print assets. Trigger whenever the user mentions 'design screen,' 'build component,' 'create website,' 'design landing page,' 'make one-pager,' 'design brochure,' 'create presentation,' 'write document,' 'build spreadsheet,' 'design social card,' 'prismforce design,' or 'brand asset.' All outputs must use Prismforce design tokens (typography, colors, spacing, elevation), Plus Jakarta Sans font exclusively, and provided brand assets. Do NOT use this skill for backend logic, API design, data modeling, or non-branded work."
 type: skill
-trigger-phrases: build UI, build component, design screen, create frontend, frontend for, design this, make a page, build a page, build a dashboard, UI for, interface for, pf design, prismforce design, design system, brand kit
-not-for: backend logic, API design, data modeling (no UI output)
-philosophy-anchor: "PF design system is non-negotiable. Creativity lives in layout, motion, and composition — never in fonts or colors."
-prompt-tokens: deep
-playbook-refs: none
+philosophy-anchor: "Clean, minimalist design. Prismforce design system is non-negotiable — fonts, colors, spacing, elevation are locked. Creativity lives in layout, motion, composition, and information hierarchy."
+prompt-tokens: medium
 ---
 
 # PF Design Kit

@@ -1,13 +1,13 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "pfdesign",
+  "name": "pf-design-kit",
   "description": "Prismforce design system skills for Claude Code.",
   "owner": {
     "name": "Prismforce"
   },
   "plugins": [
     {
-      "name": "pfdesign",
+      "name": "pf-design-kit",
       "description": "Prismforce design system with design tokens, brand assets, and UI guidelines. Use /pf-design-kit to build production-grade outputs on-brand.",
       "author": {
         "name": "Prismforce"
@@ -15,11 +15,11 @@
       "category": "productivity",
       "source": {
         "source": "git-subdir",
-        "url": "https://github.com/velaswami/pfdesign.git",
+        "url": "https://github.com/velaswami/pf-design-kit.git",
         "path": ".",
         "ref": "main"
       },
-      "homepage": "https://github.com/velaswami/pfdesign"
+      "homepage": "https://github.com/velaswami/pf-design-kit"
     }
   ]
 }
