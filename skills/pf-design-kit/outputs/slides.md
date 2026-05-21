@@ -514,10 +514,13 @@ Use these patterns when building the slide set. Choose the pattern that best ser
 
 ## Phase 4: PPTX Conversion
 
-1. **Extract content** — Use the `/pptx` skill for extraction only: run `python -m markitdown presentation.pptx` to get slide text and structure. Do not follow /pptx's design guidance — all styling decisions come from pf-tokens.md and the Phase 2 theme choice. If `/pptx` is not available, ask the user to paste slide content directly.
-2. **Confirm with user** — present extracted slide titles, content summaries, and image counts
+1. **Extract content** — Use the `/pptx` skill to run `python -m markitdown presentation.pptx` and get slide text and structure. All styling — fonts, colors, spacing — comes from pf-tokens.md and your Phase 2 theme choice. If markitdown is unavailable, ask the user to paste slide content directly.
+
+   > **Note:** markitdown extracts text and structure only — images are not captured. If the original presentation contains images that should appear in the HTML deck, ask the user to provide the image files separately after extraction.
+
+2. **Confirm with user** — present extracted slide titles, content summaries, and note any slides with images that need to be provided separately
 3. **Style** — go to Phase 2 (Light or Dark)
-4. **Generate HTML** — convert to PF HTML architecture above. Preserve: text content, images, slide order, speaker notes as HTML comments. Apply PF token constraints to all styling.
+4. **Generate HTML** — convert to PF HTML architecture above. Preserve: text content, slide order, and speaker notes as HTML comments. Add user-provided images where the original had visual assets. Apply PF token constraints to all styling.
 
 ---
 
