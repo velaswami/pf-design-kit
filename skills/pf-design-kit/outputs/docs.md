@@ -6,7 +6,7 @@
 
 ## Fallback: Use pf-html.md Category 3
 
-For document, report, one-pager, brochure, and guide outputs, read `skills/pf-design-kit/pf-html.md` now and follow **Category 3: Reports & Explainers** for structure guidance.
+For document, report, one-pager, brochure, and guide outputs, read `skills/pf-design-kit/outputs/html.md` now and follow **Category 3: Reports & Explainers** for structure guidance.
 
 Apply PF token constraints from `skills/pf-design-kit/pf-tokens.md`:
 - Font: Plus Jakarta Sans exclusively
