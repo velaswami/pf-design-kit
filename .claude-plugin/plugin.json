@@ -1,7 +1,7 @@
 {
   "name": "pf-design-kit",
   "version": "1.2.0",
-  "description": "Prismforce design system with design tokens, brand assets, and UI guidelines. Use /pf-design-kit to build production-grade outputs on-brand.",
+  "description": "Prismforce design system — build slides, UI components, HTML artifacts, and documents on-brand. Fonts, colors, spacing, and brand assets are locked to PF tokens.",
   "author": {
     "name": "Prismforce"
   }
