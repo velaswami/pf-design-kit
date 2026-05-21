@@ -10,7 +10,7 @@ Build Prismforce-branded outputs in Claude — slides, interfaces, HTML artifact
 
 **HTML artifacts** — Review documents, option comparisons, status reports, and interactive editors (triage boards, prompt tuners, feature flag managers) with PF styling.
 
-**Documents & one-pagers** — Coming soon.
+**Documents & one-pagers** — Early access. Routes to HTML report/explainer guidance.
 
 ## Add to Claude
 

@@ -39,6 +39,9 @@ The PF palette is light and cool — surfaces are close in value. Create depth t
 - Desktop margins: `--margin-desktop` (40px)
 - All breakpoint-specific typography: use `headline-lg-mobile` on small screens
 
+### Motion
+If the output includes animation, hover states, or interactive transitions → Read `skills/pf-design-kit/pf-motion.md` now before implementing any motion.
+
 ---
 
 ## Pre-Delivery Checklist

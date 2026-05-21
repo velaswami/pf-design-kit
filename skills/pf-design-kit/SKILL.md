@@ -1,7 +1,7 @@
 ---
 name: pf-design-kit
-description: "Use when building any branded Prismforce output. Applies to slides, docs, components, social cards, one-pagers, landing pages, brochures, reports, and spreadsheets."
-when_to_use: "Trigger when user asks to: design a component, build a UI, create a website, make a landing page, design a one-pager, make a brochure, create a presentation, write a deck, build a report, create a spreadsheet, design a social card, make a banner, create a brand asset. Also trigger on: 'prismforce design', 'on brand', 'brand asset', 'design system', 'pf design', 'prismforce branded'."
+description: "Use when building any branded Prismforce output. Applies to slides, docs, components, social cards, one-pagers, landing pages, brochures, and reports."
+when_to_use: "Trigger when user asks to: design a component, build a UI, create a website, make a landing page, design a one-pager, make a brochure, create a presentation, write a deck, build a report, design a social card, make a banner, create a brand asset. Also trigger on: 'prismforce design', 'on brand', 'brand asset', 'design system', 'pf design', 'prismforce branded'."
 argument-hint: "[output-type] [brief description]"
 allowed-tools: Read WebFetch
 ---
