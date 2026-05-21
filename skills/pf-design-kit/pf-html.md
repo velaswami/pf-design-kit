@@ -12,9 +12,9 @@ Markdown works for short answers, terminal output, and content that will be hand
 - The content mixes code, narrative, and visuals
 - It will be shared, not pasted
 
-PF tokens apply where they fit. If a different structure better serves the content, use it — the format is not locked, the brand system is.
+PF tokens apply where they fit. If a different structure better serves the content, use it — the output format is flexible, the brand system is not.
 
-**Interactive editors always end with an export.** The export is the save. There is no other save.
+One rule applies across all four categories: **interactive editors always end with an export.** The export is the save. There is no other save.
 
 **On hex values:** Severity indicators (Category 1) and status dots (Category 3) use `--error`, `--risk-high`, `--risk-medium`, `--risk-low` tokens — declare these in `:root` if not already included from pf-tokens.md. All other hex outside `:root` is disallowed.
 
