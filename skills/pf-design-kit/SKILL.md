@@ -51,3 +51,11 @@ Do not load more than one output file unless the user explicitly requests mixed 
 If the user mentions motion, animation, transitions, hover effects, scroll effects, or interactive elements → Read `skills/pf-design-kit/pf-motion.md` now.
 
 Do not proceed with any animated or interactive output until pf-motion.md is loaded.
+
+**Exception for slides:** pf-motion.md is always loaded inside slides.md Phase 3 regardless of whether the user mentions animation. This gate applies to component, doc, and social outputs only.
+
+---
+
+## Load If HTML Format Is Requested or Appropriate
+
+If the user asks for HTML output, or the output type would benefit from an HTML format (review artifacts, option comparisons, status reports, interactive editors) → Read `skills/pf-design-kit/pf-html.md` now for format guidance.

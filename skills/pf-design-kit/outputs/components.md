@@ -19,7 +19,7 @@ Before writing a single line of code, commit to a clear aesthetic direction:
 
 ## Phase 2 — Design System (Non-Negotiable)
 
-All design tokens (typography, color, spacing, roundness, elevation) are in `pf-tokens.md`. Read it now before proceeding. No exceptions, no creative substitutions.
+All design tokens (typography, color, spacing, roundness, elevation) are in `skills/pf-design-kit/pf-tokens.md`. Read it now before proceeding. No exceptions, no creative substitutions.
 
 ---
 
@@ -43,13 +43,13 @@ The PF palette is light and cool — surfaces are close in value. Create depth t
 
 ## Pre-Delivery Checklist
 
-✓ Aesthetic direction named and committed to before coding started
-✓ "The one memorable thing" identified and present in the output
-✓ Font: Plus Jakarta Sans loaded and applied — no other typeface present
-✓ All colors via CSS variables — no raw hex outside `:root`
-✓ Data viz colors absent from all UI chrome (buttons, nav, tags, backgrounds)
-✓ All spacing on 8px grid
-✓ Corner radii from roundness scale
-✓ Shadows from elevation tokens only
-✓ Responsive margins applied
-✓ Code is production-grade and functional, not a wireframe or mock
+- [ ] Aesthetic direction named and committed to before coding started
+- [ ] "The one memorable thing" identified and present in the output
+- [ ] Font: Plus Jakarta Sans loaded and applied — no other typeface present
+- [ ] All colors via CSS variables — no raw hex outside `:root`
+- [ ] Data viz colors absent from all UI chrome (buttons, nav, tags, backgrounds)
+- [ ] All spacing on 8px grid
+- [ ] Corner radii from roundness scale
+- [ ] Shadows from elevation tokens only
+- [ ] Responsive margins applied
+- [ ] Code is production-grade and functional, not a wireframe or mock

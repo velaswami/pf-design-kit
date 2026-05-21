@@ -16,6 +16,8 @@ The Thariq examples demonstrate one aesthetic (ivory/slate/clay). PF outputs use
 
 A key principle from the Thariq examples that carries over: **interactive editors always end with an export**. The export is the save. There is no other save.
 
+**On hex values:** The "no hardcoded hex outside `:root`" rule from pf-tokens.md applies when using PF colors. Severity indicators in Category 1 and status dots in Category 3 use `--error`, `--risk-high`, `--risk-medium`, `--risk-low` tokens — not bare hex. These tokens must be declared in `:root` if they aren't already included from pf-tokens.md. This is the only approved exception: risk/severity tokens used as status indicators. All other hex outside `:root` is disallowed.
+
 ---
 
 ## When HTML > Markdown
@@ -140,21 +142,22 @@ Plain Markdown is fine for a quick in-thread comment. Use HTML when the review i
 
 ```html
 <style>
-  /* Severity system */
+  /* Severity system — uses --error and --risk-* tokens (add to :root if not already included) */
+  /* :root additions needed: --risk-low: #16a34a; --risk-medium: #d97706; --risk-high: #dc2626; */
   .finding { border-left: 4px solid var(--outline-variant); background: var(--surface-container-low); border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 12px; }
-  .finding.critical  { border-left-color: #ba1a1a; }  /* --error */
-  .finding.high      { border-left-color: #dc2626; }  /* --risk-high */
-  .finding.medium    { border-left-color: #d97706; }  /* --risk-medium */
-  .finding.low       { border-left-color: #16a34a; }  /* --risk-low */
+  .finding.critical  { border-left-color: var(--error); }
+  .finding.high      { border-left-color: var(--risk-high); }
+  .finding.medium    { border-left-color: var(--risk-medium); }
+  .finding.low       { border-left-color: var(--risk-low); }
   .sev-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; margin-right: 8px; vertical-align: 2px; }
-  .dot-critical { background: #ba1a1a; }
-  .dot-high     { background: #dc2626; }
-  .dot-medium   { background: #d97706; }
-  .dot-low      { background: #16a34a; }
+  .dot-critical { background: var(--error); }
+  .dot-high     { background: var(--risk-high); }
+  .dot-medium   { background: var(--risk-medium); }
+  .dot-low      { background: var(--risk-low); }
 
-  /* Diff */
-  .diff-add { background: rgba(22,163,74,0.10); color: #14532d; font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 13px; padding: 1px 6px; border-radius: 4px; }
-  .diff-rem { background: rgba(220,38,38,0.10); color: #7f1d1d; font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 13px; padding: 1px 6px; border-radius: 4px; }
+  /* Diff — approved status-indicator use of risk colors */
+  .diff-add { background: rgba(22,163,74,0.10); color: var(--risk-low); font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 13px; padding: 1px 6px; border-radius: 4px; }
+  .diff-rem { background: rgba(220,38,38,0.10); color: var(--risk-high); font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 13px; padding: 1px 6px; border-radius: 4px; }
 
   /* Header */
   .pr-meta { font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 12px; color: var(--on-surface-variant); margin-bottom: 6px; }
@@ -315,11 +318,11 @@ If there's only one option or it's a linear explanation, use Category 3 (Reports
   .stat-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 48px; }
   @media (max-width: 720px) { .stat-band { grid-template-columns: repeat(2, 1fr); } }
   .stat-card { background: var(--surface-container-low); border: 1.5px solid var(--outline-variant); border-radius: 12px; padding: 20px 22px; }
-  .stat-card.alert { border-left: 4px solid #d97706; }
+  .stat-card.alert { border-left: 4px solid var(--risk-medium); }
   .stat-num { font-size: 44px; font-weight: 700; line-height: 1; color: var(--on-surface); margin-bottom: 8px; }
   .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--on-surface-variant); }
   .stat-delta { font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 11px; margin-top: 6px; color: var(--on-surface-variant); }
-  .delta-up { color: #16a34a; }
+  .delta-up { color: var(--risk-low); }
 
   /* Section */
   section { margin-bottom: 48px; }
@@ -339,9 +342,9 @@ If there's only one option or it's a linear explanation, use Category 3 (Reports
 
   /* Status dots */
   .sdot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 6px; vertical-align: 1px; }
-  .sdot-green  { background: #16a34a; }
-  .sdot-amber  { background: #d97706; }
-  .sdot-red    { background: #dc2626; }
+  .sdot-green  { background: var(--risk-low); }
+  .sdot-amber  { background: var(--risk-medium); }
+  .sdot-red    { background: var(--risk-high); }
 </style>
 
 <!-- Header -->

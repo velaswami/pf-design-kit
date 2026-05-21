@@ -67,21 +67,19 @@ Viewport fitting is the biggest risk when modifying existing presentations:
 
 ## Phase 1: Content Discovery
 
-Ask all questions in a single AskUserQuestion call so the user fills everything out at once.
+Ask all four questions in a single message so the user can respond to everything at once.
 
-**Question 1 — Purpose** (header: "Purpose"):
-What is this presentation for? Options: Pitch deck / Internal presentation / Conference talk / Teaching-Tutorial
+**Question 1 — Purpose:**
+What is this presentation for? (Pitch deck / Internal presentation / Conference talk / Teaching-Tutorial)
 
-**Question 2 — Length** (header: "Length"):
-Approximately how many slides? Options: Short 5–10 / Medium 10–20 / Long 20+
+**Question 2 — Length:**
+Approximately how many slides? (Short 5–10 / Medium 10–20 / Long 20+)
 
-**Question 3 — Content** (header: "Content"):
-Do you have content ready? Options: All content ready / Rough notes / Topic only
+**Question 3 — Content:**
+Do you have content ready? (All content ready / Rough notes / Topic only)
 
-**Question 4 — Editing** (header: "Editing"):
-Do you need to edit text directly in the browser after generation? Options:
-- Yes — can edit text in-browser, auto-save to localStorage, export file
-- No — presentation only
+**Question 4 — Editing:**
+Do you need to edit text directly in the browser after generation? (Yes — in-browser editing with localStorage save / No — presentation only)
 
 Remember the user's editing choice — it determines whether edit-related JS is included in Phase 3.
 
@@ -96,7 +94,7 @@ If the user provides an image folder:
 2. **View each image** — use the Read tool (Claude is multimodal)
 3. **Evaluate** — for each: what it shows, USABLE or NOT USABLE (with reason), what concept it represents
 4. **Co-design the outline** — curated images inform slide structure alongside text. Design around both from the start
-5. **Confirm** via AskUserQuestion (header: "Outline"): "Does this slide outline and image selection look right?" Options: Looks good / Adjust images / Adjust outline
+5. **Confirm** in a single message: "Does this slide outline and image selection look right?" (Looks good / Adjust images / Adjust outline)
 
 **PF logo note:** The title slide always includes the PF logo. This is separate from user-provided images. Load `pf-logo.md` before Phase 3 to determine the correct variant.
 
@@ -141,9 +139,9 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
 
 **Before generating, read these files now. Do not proceed until all three are loaded.**
 
-1. Read `pf-tokens.md` now.
-2. Read `pf-logo.md` now.
-3. Read `pf-motion.md` now. (Always required — it defines the deck transition CSS and reduced-motion rules.)
+1. Read `skills/pf-design-kit/pf-tokens.md` now.
+2. Read `skills/pf-design-kit/pf-logo.md` now.
+3. Read `skills/pf-design-kit/pf-motion.md` now. (Always required — it defines the deck transition CSS and reduced-motion rules.)
 
 ### HTML Architecture
 
@@ -373,7 +371,7 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
       border-radius: 50%;
       background: var(--slide-border);
       cursor: pointer;
-      transition: background 0.2s, transform 0.2s;
+      transition: background var(--duration-fast) var(--ease-standard), transform var(--duration-fast) var(--ease-standard);
     }
 
     .nav-dot.active {
@@ -465,7 +463,7 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
   document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
   document.addEventListener('touchend', e => {
     const delta = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 40) goTo(delta > 0 ? current + 1 : current - 1);
+    if (Math.abs(delta) > 50) goTo(delta > 0 ? current + 1 : current - 1);
   });
 
   /* === INLINE EDIT MODE (include only if user selected Yes in Phase 1) === */
@@ -552,7 +550,7 @@ Run through this before declaring the presentation complete:
 - [ ] `--primary` / `--slide-accent` used for one element per slide, not scattered
 - [ ] Content within density limits for every slide type
 - [ ] `<meta name="slides-format" content="viewport">` present in `<head>`
-- [ ] `prefers-reduced-motion` block present and removes transitions
+- [ ] `prefers-reduced-motion` block present using `0.01ms` pattern (not `transition: none`) so JS callbacks still fire
 - [ ] File name ends in `.slides.html`
 - [ ] No decorative animations unless explicitly requested by the user
 
@@ -564,4 +562,4 @@ Run through this before declaring the presentation complete:
 |---|---|---|
 | `pf-tokens.md` | Full PF design tokens — typography, color, spacing, roundness, elevation | Phase 3 (always — read before generating) |
 | `pf-logo.md` | Logo variants, usage rules, minimum sizing, embedded SVG mark | Phase 3 (always — read before generating) |
-| `pf-motion.md` | Motion guidance for transitions and interactions | Phase 3 (only if user explicitly requests animation) |
+| `pf-motion.md` | Motion guidance for transitions and interactions | Phase 3 (always — defines deck transition CSS and reduced-motion block) |

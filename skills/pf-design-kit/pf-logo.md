@@ -17,7 +17,7 @@ Never generate or create logos. Always use Prismforce logos exactly as provided.
 
 ## Logo Usage Rules
 
-1. **Never resize distort**: Maintain aspect ratio, minimum dimensions 100px wide
+1. **Never resize or distort**: Maintain aspect ratio, minimum dimensions 100px wide
 2. **Breathing room**: Add min 16px padding on all sides
 3. **Color**: Logo colors are locked — no recoloring or fill changes
 4. **Multiple logos**: Use mark-only version (embedded below) for compact spaces, full logo+text for primary placement
