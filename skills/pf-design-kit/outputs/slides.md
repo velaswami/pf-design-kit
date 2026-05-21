@@ -139,11 +139,11 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
 
 ## Phase 3: Generate Presentation
 
-**Before generating, read these files now. Do not proceed until all required files are loaded:**
+**Before generating, read these files now. Do not proceed until all three are loaded.**
 
 1. Read `pf-tokens.md` now.
 2. Read `pf-logo.md` now.
-3. If user mentioned animation, transitions, or interactive effects → Read `pf-motion.md` now.
+3. Read `pf-motion.md` now. (Always required — it defines the deck transition CSS and reduced-motion rules.)
 
 ### HTML Architecture
 
@@ -160,6 +160,7 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
     /* === PF DESIGN TOKENS === */
     :root {
       /* Paste full token block from pf-tokens.md here */
+      /* Paste motion timing tokens from pf-motion.md here (--duration-* and --ease-*) */
       /* Then add theme-specific aliases below */
 
       /* Active theme aliases (swap for dark theme) */
@@ -201,7 +202,9 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
       background: var(--slide-bg);
       opacity: 0;
       transform: scale(0.97);
-      transition: opacity 0.3s ease, transform 0.3s ease;
+      transition:
+        opacity   var(--duration-slow) var(--ease-standard),
+        transform var(--duration-slow) var(--ease-standard);
       pointer-events: none;
       display: flex;
       flex-direction: column;
@@ -214,7 +217,12 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .slide { transition: none; }
+      *, *::before, *::after {
+        animation-duration:        0.01ms !important;
+        animation-iteration-count: 1      !important;
+        transition-duration:       0.01ms !important;
+        scroll-behavior:           auto   !important;
+      }
     }
 
     /* === SLIDE TITLE (consistent position — always top-left) === */
@@ -492,6 +500,7 @@ Use these patterns when building the slide set. Choose the pattern that best ser
 
 ### Non-Negotiable Requirements
 
+- `:root` must include both pf-tokens.md design tokens AND pf-motion.md timing tokens (`--duration-*`, `--ease-*`) — both sets are required; omitting motion tokens causes silent CSS failures
 - Font: Plus Jakarta Sans only — Google Fonts link always present, no fallback to system fonts
 - No hardcoded hex values outside `:root`
 - `--viz-*`, `--risk-*`, `--action-*` tokens never used on UI chrome (buttons, borders, backgrounds, nav)
