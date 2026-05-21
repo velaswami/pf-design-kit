@@ -1,30 +1,31 @@
 # pf-design-kit
 
-Prismforce design system skills for Claude Code. Fonts, colors, spacing, elevation, and roundness are locked to PF tokens. Brand assets (logos) included.
+Build Prismforce-branded outputs in Claude — slides, interfaces, HTML artifacts, and documents — with PF fonts, colors, spacing, and brand assets automatically applied.
 
-## Installation
+## What you can build
 
-### Plugin (recommended)
+**Slide decks** — Single-file HTML presentations. PF-locked design (Light or Dark theme), consultant-grade layout vocabulary (Key Takeaway, Two-Column, Data Highlight), keyboard and swipe navigation, PPTX conversion.
 
-```bash
-claude plugin install velaswami/pf-design-kit
+**UI components & interfaces** — Production-grade HTML/CSS components, landing pages, and web interfaces on the PF design system.
+
+**HTML artifacts** — Review documents, option comparisons, status reports, and interactive editors (triage boards, prompt tuners, feature flag managers) with PF styling.
+
+**Documents & one-pagers** — Coming soon.
+
+## Add to Claude
+
+### Claude Code
+
+```
+/plugin marketplace add velaswami/pf-design-kit
+/plugin install pf-design-kit@pf-design-kit
 ```
 
-Then invoke `/pf-design-kit` in Claude Code.
+Then invoke `/pf-design-kit` in any session.
 
-### ZIP Upload (Claude Code web app)
+### Claude Chat (web app)
 
-1. Download the latest ZIP from [Releases](https://github.com/velaswami/pf-design-kit/releases)
-2. Settings → Skills → Upload ZIP
-3. Invoke `/pf-design-kit`
-
-## Skills
-
-| Skill | Status |
-|---|---|
-| `outputs/slides.md` — HTML slide decks, PF-locked, Light/Dark themes, consultant layout vocabulary | Ready |
-| `outputs/components.md` — UI components, interfaces, landing pages | Ready |
-| `outputs/docs.md` — Documents, reports, one-pagers, brochures | Coming soon |
+Download the ZIP from [Releases](https://github.com/velaswami/pf-design-kit/releases), then go to Settings → Skills → Upload ZIP.
 
 ## Usage
 
