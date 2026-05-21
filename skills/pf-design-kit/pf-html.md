@@ -237,8 +237,8 @@ If there's only one option or it's a linear explanation, use Category 3 (Reports
   .tr-head { display: grid; grid-template-columns: 1fr 1fr; background: var(--surface-container); padding: 8px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--on-surface-variant); }
   .tr-row { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--outline-variant); }
   .tr-cell { padding: 9px 12px; }
-  .tr-pro::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #16a34a; margin-right: 8px; vertical-align: 2px; }
-  .tr-con::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #d97706; margin-right: 8px; vertical-align: 2px; }
+  .tr-pro::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--risk-low); margin-right: 8px; vertical-align: 2px; }
+  .tr-con::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--risk-medium); margin-right: 8px; vertical-align: 2px; }
 
   /* Chips */
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -435,7 +435,7 @@ If there's only one option or it's a linear explanation, use Category 3 (Reports
   .spacer { flex: 1; }
   .btn-export { background: var(--on-surface); color: var(--surface); border: none; border-radius: 999px; font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 12px; padding: 9px 18px; cursor: pointer; }
   .btn-export:hover { opacity: 0.85; }
-  .btn-export.copied { background: #16a34a; }
+  .btn-export.copied { background: var(--risk-low); }
   .btn-ghost { background: transparent; border: 1.5px solid var(--outline-variant); border-radius: 999px; font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 12px; padding: 9px 16px; cursor: pointer; color: var(--on-surface); }
   .btn-ghost:hover { border-color: var(--outline); }
 

@@ -135,6 +135,13 @@ Base unit: 8px. All spacing snaps to this grid.
 | margin-mobile | 16px |
 | margin-desktop | 40px |
 
+```css
+:root {
+  --margin-mobile:  16px;
+  --margin-desktop: 40px;
+}
+```
+
 ---
 
 ## Roundness
