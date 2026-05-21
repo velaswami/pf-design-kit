@@ -12,11 +12,11 @@ Markdown works for short answers, terminal output, and content that will be hand
 - The content mixes code, narrative, and visuals
 - It will be shared, not pasted
 
-The Thariq examples demonstrate one aesthetic (ivory/slate/clay). PF outputs use PF tokens where they fit. Neither system is mandatory — if a different structure serves the content, use it.
+PF tokens apply where they fit. If a different structure better serves the content, use it — the format is not locked, the brand system is.
 
-A key principle from the Thariq examples that carries over: **interactive editors always end with an export**. The export is the save. There is no other save.
+**Interactive editors always end with an export.** The export is the save. There is no other save.
 
-**On hex values:** The "no hardcoded hex outside `:root`" rule from pf-tokens.md applies when using PF colors. Severity indicators in Category 1 and status dots in Category 3 use `--error`, `--risk-high`, `--risk-medium`, `--risk-low` tokens — not bare hex. These tokens must be declared in `:root` if they aren't already included from pf-tokens.md. This is the only approved exception: risk/severity tokens used as status indicators. All other hex outside `:root` is disallowed.
+**On hex values:** Severity indicators (Category 1) and status dots (Category 3) use `--error`, `--risk-high`, `--risk-medium`, `--risk-low` tokens — declare these in `:root` if not already included from pf-tokens.md. All other hex outside `:root` is disallowed.
 
 ---
 
@@ -142,8 +142,7 @@ Plain Markdown is fine for a quick in-thread comment. Use HTML when the review i
 
 ```html
 <style>
-  /* Severity system — uses --error and --risk-* tokens (add to :root if not already included) */
-  /* :root additions needed: --risk-low: #16a34a; --risk-medium: #d97706; --risk-high: #dc2626; */
+  /* Severity system — uses --error and --risk-* tokens from pf-tokens.md (add to :root if not already included) */
   .finding { border-left: 4px solid var(--outline-variant); background: var(--surface-container-low); border-radius: 0 8px 8px 0; padding: 14px 18px; margin-bottom: 12px; }
   .finding.critical  { border-left-color: var(--error); }
   .finding.high      { border-left-color: var(--risk-high); }
