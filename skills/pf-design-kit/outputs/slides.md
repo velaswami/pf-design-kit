@@ -514,7 +514,7 @@ Use these patterns when building the slide set. Choose the pattern that best ser
 
 ## Phase 4: PPTX Conversion
 
-1. **Extract content** — Use the `/pptx` skill to run `python -m markitdown presentation.pptx` and get slide text and structure. All styling — fonts, colors, spacing — comes from pf-tokens.md and your Phase 2 theme choice. If markitdown is unavailable, ask the user to paste slide content directly.
+1. **Extract content** — If `markitdown` is available in the environment, run `python -m markitdown presentation.pptx` to extract slide text and structure. All styling — fonts, colors, spacing — comes from pf-tokens.md and your Phase 2 theme choice. If markitdown is unavailable, ask the user to paste slide content directly.
 
    > **Note:** markitdown extracts text and structure only — images are not captured. If the original presentation contains images that should appear in the HTML deck, ask the user to provide the image files separately after extraction.
 

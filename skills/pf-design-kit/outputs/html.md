@@ -434,7 +434,7 @@ If there's only one option or it's a linear explanation, use Category 3 (Reports
   .spacer { flex: 1; }
   .btn-export { background: var(--on-surface); color: var(--surface); border: none; border-radius: 999px; font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 12px; padding: 9px 18px; cursor: pointer; }
   .btn-export:hover { opacity: 0.85; }
-  .btn-export.copied { background: var(--risk-low); }
+  .btn-export.copied { background: var(--secondary); }
   .btn-ghost { background: transparent; border: 1.5px solid var(--outline-variant); border-radius: 999px; font-family: ui-monospace,'SF Mono',Menlo,monospace; font-size: 12px; padding: 9px 16px; cursor: pointer; color: var(--on-surface); }
   .btn-ghost:hover { border-color: var(--outline); }
 

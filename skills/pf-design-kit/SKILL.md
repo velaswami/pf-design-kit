@@ -1,6 +1,7 @@
 ---
 name: pf-design-kit
 description: "Use when building any branded Prismforce output. Applies to slides, docs, components, social cards, HTML artifacts, one-pagers, landing pages, brochures, and reports."
+type: skill
 when_to_use: "Trigger when user asks to: design a component, build a UI, create a website, make a landing page, design a one-pager, make a brochure, create a presentation, write a deck, build a report, design a social card, make a banner, create a brand asset, create a review artifact, build a PR review document, make an option comparison, create a triage board, build an interactive editor, make an HTML output. Also trigger on: 'prismforce design', 'on brand', 'brand asset', 'design system', 'pf design', 'prismforce branded'."
 argument-hint: "[output-type] [brief description]"
 allowed-tools: Read WebFetch
