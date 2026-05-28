@@ -17,7 +17,7 @@ Never generate or create logos. Always use Prismforce logos exactly as provided.
 
 ## Logo Usage Rules
 
-1. **Never resize or distort**: Maintain aspect ratio, minimum dimensions 100px wide
+1. **Lock aspect ratio before resizing**: Never set width and height independently — always set one dimension and let the other scale. In HTML: set only `width` or only `height`, never both. In PowerPoint/Word: hold Shift while dragging, or enable "Lock aspect ratio" in Format Picture. Minimum 100px wide.
 2. **Breathing room**: Add min 16px padding on all sides
 3. **Color**: Logo colors are locked — no recoloring or fill changes
 4. **Multiple logos**: Use mark-only version (embedded below) for compact spaces, full logo+text for primary placement
