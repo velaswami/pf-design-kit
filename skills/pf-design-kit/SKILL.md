@@ -57,3 +57,13 @@ Do not proceed with any animated or interactive output until pf-motion.md is loa
 
 **Exception for slides:** pf-motion.md is always loaded inside slides.md Phase 3 regardless of whether the user mentions animation. This gate applies to component, doc, and social outputs only.
 
+---
+
+## Load If Charts Required
+
+If the user mentions charts, graphs, data visualization, metrics, scores, or visual data display → Read `skills/pf-design-kit/pf-charts.md` now.
+
+Do not apply any data viz colors or build any chart until pf-charts.md is loaded.
+
+**Does not apply to `social` output type.** Social cards use static design elements only — no charts.
+
