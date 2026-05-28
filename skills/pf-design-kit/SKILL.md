@@ -15,21 +15,23 @@ allowed-tools: Read WebFetch
 
 Read the user's request and map it to one of these output types:
 
-| Output type | Trigger words |
-|-------------|--------------|
+| Output type | Clear triggers (route directly) |
+|-------------|--------------------------------|
 | `component` | component, UI, interface, website, landing page, web app, screen |
 | `slide` | slide, deck, presentation, pitch deck |
-| `doc` | document, report, one-pager, brochure, guide (format-neutral — user hasn't specified HTML) |
-| `social` | social card, banner, card, thumbnail, OG image |
-| `html` | review artifact, PR review, code walkthrough, option comparison, triage board, interactive editor, prompt tuner, explicit "HTML" output request |
+| `doc` | document (format-neutral — user hasn't specified HTML, no interactivity implied) |
+| `social` | social card, social banner, thumbnail, OG image, LinkedIn banner, Twitter card |
+| `html` | review artifact, PR review, code walkthrough, option comparison, triage board, interactive editor, prompt tuner, explicit "HTML" |
 
-If the request is ambiguous, ask ONE clarifying question before proceeding. The question must list all output options explicitly: *"What format do you need — a slide deck, a UI component or landing page, a static document, a social card or banner, or an HTML artifact like a comparison or review board?"* Do not guess.
+**Ambiguous trigger words — always ask before routing:** one-pager, report, brochure, guide, summary, brief, overview, banner, card. When the request contains only these words with no format qualifier (e.g. no "social", "slide", "HTML", "component"), ask the clarifying question.
+
+If the request is ambiguous or two clear trigger types fire simultaneously, ask ONE clarifying question before proceeding. The question must list all output options explicitly: *"What format do you need — a slide deck, a UI component or landing page, a static document, a social card or banner, or an HTML artifact like a comparison or review board?"*
 
 ---
 
 ## Always Load (Mandatory — Every Invocation)
 
-Read these two files now. Do not proceed until both are loaded.
+Read these two files now, in order. Do not proceed until both are loaded.
 
 1. Read `skills/pf-design-kit/pf-tokens.md` now.
 2. Read `skills/pf-design-kit/pf-logo.md` now.
@@ -42,8 +44,7 @@ Load exactly one of the following based on the output type detected in Phase 0:
 
 - output = `component` OR `social` → Read `skills/pf-design-kit/outputs/components.md` now.
 - output = `slide` → Read `skills/pf-design-kit/outputs/slides.md` now.
-- output = `doc` → Read `skills/pf-design-kit/outputs/html.md` now. Follow **Category 3: Reports & Explainers** for document outputs.
-- output = `html` → Read `skills/pf-design-kit/outputs/html.md` now.
+- output = `doc` OR `html` → Read `skills/pf-design-kit/outputs/html.md` now. (Load once. For `doc`: follow Category 3 — Reports & Explainers. For `html`: choose the category from the decision table in that file.)
 
 Do not load more than one output file unless the user explicitly requests mixed output types.
 
@@ -51,11 +52,11 @@ Do not load more than one output file unless the user explicitly requests mixed 
 
 ## Load If Animation Required
 
-If the user mentions motion, animation, transitions, hover effects, scroll effects, or interactive elements → Read `skills/pf-design-kit/pf-motion.md` now.
+If the output type is **not** `slide` AND the user mentions motion, animation, transitions, hover effects, scroll effects, or interactive elements → Read `skills/pf-design-kit/pf-motion.md` now.
 
 Do not proceed with any animated or interactive output until pf-motion.md is loaded.
 
-**Exception for slides:** pf-motion.md is always loaded inside slides.md Phase 3 regardless of whether the user mentions animation. This gate applies to component, doc, and social outputs only.
+**Exception for slides:** slides.md loads pf-motion.md internally in its Phase 3. Do not load pf-motion.md here for slide output — it will be double-loaded. This gate applies to `component`, `doc`, `html`, and `social` outputs only.
 
 ---
 
@@ -66,4 +67,3 @@ If the user mentions charts, graphs, data visualization, metrics, scores, or vis
 Do not apply any data viz colors or build any chart until pf-charts.md is loaded.
 
 **Does not apply to `social` output type.** Social cards use static design elements only — no charts. All other output types (`component`, `slide`, `doc`, `html`) follow this gate when chart triggers are present.
-
