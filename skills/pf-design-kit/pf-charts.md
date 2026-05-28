@@ -310,7 +310,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Labe
 | Full-width panel | Either | 100% width, labeled axes, responsive |
 | Skills matrix heatmap | Vanilla | CSS grid, `background-color` from sequential palette — no library |
 
-**Motion:** Animated chart entries require `pf-motion.md` loaded. Static by default.
+**Motion:** Animated chart entries require `pf-motion.md` loaded. Static by default. When animation is enabled, use the `animateBars()`, `animateBarFills()`, `animateDonut()`, and `animateCounter()` patterns from pf-motion.md Section "Data Visualization Animations" — do not invent custom animation code.
 
 ---
 

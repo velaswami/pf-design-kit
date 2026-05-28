@@ -1,6 +1,6 @@
 # PF HTML Output System
 
-HTML is a better canvas than Markdown when the output has structure, scale, or needs to be shared. PF tokens apply where they add clarity — never as a constraint on format. This document captures preferences and patterns, not rules. Use judgment.
+HTML is a better canvas than Markdown when the output has structure, scale, or needs to be shared. PF tokens apply where they add clarity — never as a constraint on format. Use the decision table below as the primary signal — if the table gives a clear answer, follow it. Fall back to judgment only when the use case is genuinely absent from the table.
 
 ---
 

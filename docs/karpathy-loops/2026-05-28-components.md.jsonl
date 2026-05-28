@@ -1,0 +1,6 @@
+{"run_id": 0, "file": "components.md", "type": "baseline", "score": 30, "max_score": 32, "failures": ["TC7-E1"], "mutation": null}
+{"run_id": 1, "file": "components.md", "type": "add_constraint", "score": 32, "max_score": 32, "delta": 2, "failures": [], "mutation": "Added default aesthetic direction for minimal briefs: refined/enterprise. Model must commit and proceed — not ask user to choose. State choice in one-line design note before code.", "kept": true, "plateau_counter": 0}
+{"run_id": 2, "file": "components.md", "type": "analysis_no_mutation", "score": 32, "max_score": 32, "delta": 0, "mutation": "No gaps found.", "plateau_counter": 1}
+{"run_id": 3, "file": "components.md", "type": "analysis_no_mutation", "score": 32, "max_score": 32, "delta": 0, "mutation": "No gaps.", "plateau_counter": 2}
+{"run_id": 4, "file": "components.md", "type": "analysis_no_mutation", "score": 32, "max_score": 32, "delta": 0, "mutation": "No gaps.", "plateau_counter": 3}
+{"run_id": 5, "file": "components.md", "type": "analysis_no_mutation", "score": 32, "max_score": 32, "delta": 0, "mutation": "Stopping — plateau 4.", "plateau_counter": 4}

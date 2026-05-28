@@ -15,6 +15,8 @@ Before writing a single line of code, commit to a clear aesthetic direction:
 
 **CRITICAL**: Commit to the direction fully. Half-committed aesthetics produce mediocre work.
 
+**When the brief gives no aesthetic hint:** Default to `refined/enterprise` — it is the safest PF default and the least likely to clash with Prismforce's professional context. Do not ask the user to choose a direction from this list. Make the call and proceed. State your choice in a one-line design note before the code.
+
 ---
 
 ## Phase 2 — Design System (Non-Negotiable)

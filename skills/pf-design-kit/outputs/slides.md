@@ -85,6 +85,16 @@ Remember the user's editing choice — it determines whether edit-related JS is 
 
 If the user has content ready, ask them to share it after they submit the form.
 
+### Step 1.3: Pre-Generation Density Check (if content provided)
+
+Before moving to Phase 2, scan the provided content against the density limits table:
+
+1. **Count elements per slide candidate** — bullets, paragraphs, metrics, cards
+2. **Flag overflows before generating** — if any single topic exceeds its slide type's limit, plan the split now. Example: 8 bullets → must become two slides (4 bullets each), not one crammed slide
+3. **Tell the user the proposed split** if any splits are needed: "I'll split [topic] across 2 slides to stay within the 4–6 bullet limit."
+
+Do not generate any slide that would exceed the density limits. Plan splits first.
+
 ### Step 1.2: Image Evaluation (if images provided)
 
 If no images provided → skip to Phase 2.
@@ -133,6 +143,8 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
 - Secondary text: `rgba(241,239,251,0.7)`
 - Logo variant: `assets/logos/dark-background.svg` (or `on-dark-background.svg` for compact placement)
 
+**Dark theme token rule:** For dark theme, swap the `--slide-*` aliases in `:root` to use `--inverse-*` tokens. The `rgba()` values above are the only permitted bare color values outside `:root` in a dark theme output — they represent semi-transparent overlays that have no named token equivalent. Any other bare hex or rgb value is a violation.
+
 ---
 
 ## Phase 3: Generate Presentation
@@ -142,6 +154,8 @@ Derive the full theme block automatically from `pf-tokens.md` based on this choi
 1. Read `skills/pf-design-kit/pf-tokens.md` now.
 2. Read `skills/pf-design-kit/pf-logo.md` now.
 3. Read `skills/pf-design-kit/pf-motion.md` now. (Always required — it defines the deck transition CSS and reduced-motion rules.)
+
+**Animation — only when explicitly requested:** If the user asked for animated content within slides (not just navigation transitions), apply the `.reveal` class from pf-motion.md to content elements within slides — headings, bullets, cards, metrics. Use the `revealSlide()` trigger pattern from pf-motion.md, called when a slide receives the `.active` class. Navigation-only transitions are always present regardless of this setting.
 
 ### HTML Architecture
 
@@ -520,7 +534,7 @@ Use these patterns when building the slide set. Choose the pattern that best ser
 
 2. **Confirm with user** — present extracted slide titles, content summaries, and note any slides with images that need to be provided separately
 3. **Style** — go to Phase 2 (Light or Dark)
-4. **Generate HTML** — convert to PF HTML architecture above. Preserve: text content, slide order, and speaker notes as HTML comments. Add user-provided images where the original had visual assets. Apply PF token constraints to all styling.
+4. **Generate HTML** — convert to PF HTML architecture above. Preserve: text content, slide order, and speaker notes as HTML comments. Add user-provided images where the original had visual assets. Apply PF token constraints to all styling. Apply density limit check (Step 1.3) to extracted content — PPTX slides frequently overflow limits; split proactively.
 
 ---
 

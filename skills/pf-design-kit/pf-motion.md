@@ -147,7 +147,9 @@ Cards in reports and slides lift slightly on hover. This signals interactivity w
 
 ## Reveal — Entrance Animations
 
-Use these patterns to sequence content into view. Apply `.reveal` to any element that should animate on page load or slide activation.
+**Gate: only apply when the user explicitly requests entrance animation, staggered reveals, or "animate in" effects.** Do not apply `.reveal` proactively to static components, reports, or documents. If the user says "subtle transitions", ask before adding reveal animations — hover states and navigation transitions are not the same as entrance animations.
+
+Use these patterns to sequence content into view. Apply `.reveal` to any element that should animate on page load or slide activation — only when the gate above is met.
 
 ### CSS-Only Reveal (Default)
 
