@@ -1,5 +1,5 @@
 ---
-name: pf-design-kit
+name: design-kit
 description: "Use when creating any branded Prismforce visual output or document — including slide decks, pitch decks, UI components, landing pages, social cards, HTML artifacts, one-pagers, or any output that needs Prismforce design tokens applied."
 type: skill
 when_to_use: "Trigger when user asks to: design a component, build a UI, create a website, make a landing page, design a one-pager, make a brochure, create a presentation, write a deck, create a pitch deck, build a slide deck, build a report, design a social card, make a banner, create a brand asset, create a review artifact, build a PR review document, make an option comparison, create a triage board, build an interactive editor, make an HTML output. Also trigger on: 'prismforce design', 'on brand', 'brand asset', 'design system', 'pf design', 'prismforce branded', 'something visual', 'visual for', 'visual output', 'branded output', 'put together something branded'."
@@ -35,8 +35,8 @@ If the request is ambiguous or two clear trigger types fire simultaneously, ask 
 
 Read these two files now, in order. Do not proceed until both are loaded.
 
-1. Read `skills/pf-design-kit/pf-tokens.md` now.
-2. Read `skills/pf-design-kit/pf-logo.md` now.
+1. Read `skills/design-kit/pf-tokens.md` now.
+2. Read `skills/design-kit/pf-logo.md` now.
 
 ---
 
@@ -44,9 +44,9 @@ Read these two files now, in order. Do not proceed until both are loaded.
 
 Load exactly one of the following based on the output type detected in Phase 0:
 
-- output = `component` OR `social` → Read `skills/pf-design-kit/outputs/components.md` now.
-- output = `slide` → Read `skills/pf-design-kit/outputs/slides.md` now.
-- output = `doc` OR `html` → Read `skills/pf-design-kit/outputs/html.md` now. (Load once. For `doc`: follow Category 3 — Reports & Explainers. For `html`: choose the category from the decision table in that file.)
+- output = `component` OR `social` → Read `skills/design-kit/outputs/components.md` now.
+- output = `slide` → Read `skills/design-kit/outputs/slides.md` now.
+- output = `doc` OR `html` → Read `skills/design-kit/outputs/html.md` now. (Load once. For `doc`: follow Category 3 — Reports & Explainers. For `html`: choose the category from the decision table in that file.)
 
 Do not load more than one output file unless the user explicitly requests mixed output types.
 
@@ -54,7 +54,7 @@ Do not load more than one output file unless the user explicitly requests mixed 
 
 ## Load If Animation Required
 
-If the output type is **not** `slide` AND the user mentions motion, animation, transitions, hover effects, scroll effects, or interactive elements → Read `skills/pf-design-kit/pf-motion.md` now.
+If the output type is **not** `slide` AND the user mentions motion, animation, transitions, hover effects, scroll effects, or interactive elements → Read `skills/design-kit/pf-motion.md` now.
 
 Do not proceed with any animated or interactive output until pf-motion.md is loaded.
 
@@ -64,7 +64,7 @@ Do not proceed with any animated or interactive output until pf-motion.md is loa
 
 ## Load If Charts Required
 
-If the user mentions charts, graphs, data visualization, metrics, scores, or visual data display → Read `skills/pf-design-kit/pf-charts.md` now.
+If the user mentions charts, graphs, data visualization, metrics, scores, or visual data display → Read `skills/design-kit/pf-charts.md` now.
 
 **Also fires for rebuilds:** If the task is a redesign of an existing artifact, inspect the source — if it contains charts or data visualization, load pf-charts.md regardless of whether the user's brief mentions them.
 
