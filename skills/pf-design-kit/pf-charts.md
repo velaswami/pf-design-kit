@@ -134,7 +134,7 @@ These are prohibited. If a user requests one, comply but add a comment naming th
 | 90% | `#3452d0` | white |
 | 100% | `#1f40cb` | white |
 
-Never use rainbow. Text contrast threshold: dark text for fill < 60%, white text for fill ≥ 60%.
+Never use rainbow. Round half up (45% → 50%, 65% → 70%). Text contrast threshold: dark text for fill < 60%, white text for fill ≥ 60%.
 
 **Strict rule:** These tokens are for data only. Never apply to buttons, nav, tags, backgrounds, or any UI chrome.
 
@@ -160,7 +160,7 @@ Text color: `var(--on-surface-variant)` (`#43474e`) for labels and axes. `var(--
 
 ---
 
-## For Slides (`slides.md`)
+## For Slides (`outputs/slides.md`)
 
 Slides are single-file HTML — charts render as inline SVG or Chart.js Canvas.
 
@@ -182,14 +182,14 @@ Slides are single-file HTML — charts render as inline SVG or Chart.js Canvas.
 | Data Highlight | 1–3 large stat callouts — prefer over chart when data is simple |
 
 **Constraints:**
-- Charts must respect slide content density limits from `slides.md`
+- Charts must respect slide content density limits from `outputs/slides.md`
 - Never overflow `100vh` — size chart to fit within the slide's content zone
 - Chart.js does not resolve CSS variables — use hex values directly: `#1f40cb`, `#0891b2`, etc.
 - Prefer SVG for < 20 data points; Chart.js for larger datasets
 
 ---
 
-## For Components and HTML (`components.md`, `html.md`)
+## For Components and HTML (`outputs/components.md`, `outputs/html.md`)
 
 **Determine stack first.** If the output is React, use Recharts. If vanilla HTML, use Chart.js. Do not mix.
 
@@ -314,7 +314,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, Labe
 
 ---
 
-## For Documents (`docs.md`)
+## For Documents (`outputs/docs.md`)
 
 Documents are static HTML. No Canvas, no JS libraries.
 
