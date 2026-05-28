@@ -4,14 +4,14 @@
 
 ---
 
-## Fallback: Use pf-html.md Category 3
+## Current Guidance: html.md Category 3
 
-For document, report, one-pager, brochure, and guide outputs, read `skills/pf-design-kit/outputs/html.md` now and follow **Category 3: Reports & Explainers** for structure guidance.
+This file is not yet written as a standalone guide. The SKILL.md router loads `outputs/html.md` directly for `doc` output type. Follow **Category 3: Reports & Explainers** in that file for structure guidance.
 
-Apply PF token constraints from `skills/pf-design-kit/pf-tokens.md`:
+Apply PF token constraints from `pf-tokens.md` (already loaded by SKILL.md):
 - Font: Plus Jakarta Sans exclusively
 - Colors: CSS custom properties from pf-tokens.md only — no hardcoded hex outside `:root`
-- For PPTX/DOCX outputs: reference logo PNG files per `skills/pf-design-kit/pf-logo.md`
+- For PPTX/DOCX outputs: reference logo PNG files per `pf-logo.md`
 
 ---
 

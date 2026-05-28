@@ -42,7 +42,7 @@ Load exactly one of the following based on the output type detected in Phase 0:
 
 - output = `component` OR `social` → Read `skills/pf-design-kit/outputs/components.md` now.
 - output = `slide` → Read `skills/pf-design-kit/outputs/slides.md` now.
-- output = `doc` → Read `skills/pf-design-kit/outputs/docs.md` now.
+- output = `doc` → Read `skills/pf-design-kit/outputs/html.md` now. Follow **Category 3: Reports & Explainers** for document outputs.
 - output = `html` → Read `skills/pf-design-kit/outputs/html.md` now.
 
 Do not load more than one output file unless the user explicitly requests mixed output types.
@@ -65,5 +65,5 @@ If the user mentions charts, graphs, data visualization, metrics, scores, or vis
 
 Do not apply any data viz colors or build any chart until pf-charts.md is loaded.
 
-**Does not apply to `social` output type.** Social cards use static design elements only — no charts.
+**Does not apply to `social` output type.** Social cards use static design elements only — no charts. All other output types (`component`, `slide`, `doc`, `html`) follow this gate when chart triggers are present.
 
