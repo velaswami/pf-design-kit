@@ -4,11 +4,5 @@
   "description": "Prismforce design system — build slides, UI components, HTML artifacts, and documents on-brand. Fonts, colors, spacing, and brand assets are locked to PF tokens.",
   "author": {
     "name": "Prismforce"
-  },
-  "skills": [
-    {
-      "name": "pf-design-kit",
-      "path": "skills/pf-design-kit/SKILL.md"
-    }
-  ]
+  }
 }
