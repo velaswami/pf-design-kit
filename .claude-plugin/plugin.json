@@ -1,6 +1,6 @@
 {
   "name": "pf-design-kit",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Prismforce design system — build slides, UI components, HTML artifacts, and documents on-brand. Fonts, colors, spacing, and brand assets are locked to PF tokens.",
   "author": {
     "name": "Prismforce"

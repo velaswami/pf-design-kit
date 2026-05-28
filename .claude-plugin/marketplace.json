@@ -17,7 +17,7 @@
         "source": "git-subdir",
         "url": "https://github.com/velaswami/pf-design-kit.git",
         "path": ".",
-        "ref": "v1.6.1"
+        "ref": "v1.7.0"
       },
       "homepage": "https://github.com/velaswami/pf-design-kit"
     }
