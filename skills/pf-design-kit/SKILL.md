@@ -13,6 +13,8 @@ allowed-tools: Read WebFetch
 
 ## Phase 0 — Detect Output Type
 
+**Rebuild detection:** If the task is a redesign or rebuild of an existing file, read (or inspect) the source before evaluating conditional gates. Apply all conditional loads — charts, motion — based on **both** the user's brief and the source content. Do not rely on the brief alone — chart and animation content lives in the source file, not the prompt.
+
 Read the user's request and map it to one of these output types:
 
 | Output type | Clear triggers (route directly) |
@@ -63,6 +65,8 @@ Do not proceed with any animated or interactive output until pf-motion.md is loa
 ## Load If Charts Required
 
 If the user mentions charts, graphs, data visualization, metrics, scores, or visual data display → Read `skills/pf-design-kit/pf-charts.md` now.
+
+**Also fires for rebuilds:** If the task is a redesign of an existing artifact, inspect the source — if it contains charts or data visualization, load pf-charts.md regardless of whether the user's brief mentions them.
 
 Do not apply any data viz colors or build any chart until pf-charts.md is loaded.
 

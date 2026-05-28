@@ -563,6 +563,8 @@ Run this before declaring any chart complete. Assume issues exist — find them.
 - [ ] Components/HTML: chart is responsive, reflows at ≤ 768px
 - [ ] Docs: SVG only, data table included below chart
 - [ ] Chart.js configs use hex values, not CSS variables
+- [ ] Axis margins accommodate the widest label the chart can produce across **all data-scale states** (metric toggle, filter selections, date range) — not just default load
+- [ ] If the chart displays deltas or changes (negative values possible), verify the axis formatter handles negatives explicitly — never assume values are always positive
 
 ---
 
