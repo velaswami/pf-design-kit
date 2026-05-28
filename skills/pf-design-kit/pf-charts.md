@@ -61,7 +61,7 @@ Map data shape + analytical goal to chart type. Do not deviate without a stated 
 
 | PF data type | Chart type |
 |--------------|------------|
-| Skills matrix (role × skill, fill %) | Heatmap — single-hue (`#dbe1ff` → `#1f40cb`) |
+| Skills matrix (role × skill, fill %) | Heatmap — sequential palette (see Color Tokens section) |
 | Automation risk by role | Horizontal sorted bar — `--risk-*` tokens by band |
 | Headcount over time (single BU) | Line with endpoint label |
 | Headcount over time (multiple BUs) | Small multiples |
@@ -118,17 +118,23 @@ These are prohibited. If a user requests one, comply but add a comment naming th
 --action-bridge:   #735471;
 ```
 
-**Sequential palette (heatmaps, fill-rate matrices):** Single-hue progression from light to dark. Use these five steps — do not interpolate freely:
+**Sequential palette (heatmaps, fill-rate matrices):** Single-hue progression from light to dark. Linear RGB interpolation between `#f0f4ff` → `#1f40cb`. Use these steps — round cell values to nearest 10%:
 
-| Step | Value | Hex |
-|------|-------|-----|
-| 0% (empty) | 0 | `#f0f4ff` |
-| 25% | low fill | `#b8c8f8` |
-| 50% | mid fill | `#7091f0` |
-| 75% | high fill | `#3d5ee0` |
-| 100% (full) | complete | `#1f40cb` |
+| Fill % | Hex | Text on cell |
+|--------|-----|--------------|
+| 0% | `#f0f4ff` | dark (`#191c20`) |
+| 10% | `#dbe2fa` | dark |
+| 20% | `#c6d0f5` | dark |
+| 30% | `#b1beef` | dark |
+| 40% | `#9cacea` | dark |
+| 50% | `#889ae5` | dark |
+| 60% | `#7388e0` | white (`#ffffff`) |
+| 70% | `#5e76db` | white |
+| 80% | `#4964d5` | white |
+| 90% | `#3452d0` | white |
+| 100% | `#1f40cb` | white |
 
-Never use rainbow. For values between steps, round to nearest step.
+Never use rainbow. Text contrast threshold: dark text for fill < 60%, white text for fill ≥ 60%.
 
 **Strict rule:** These tokens are for data only. Never apply to buttons, nav, tags, backgrounds, or any UI chrome.
 
@@ -185,36 +191,124 @@ Slides are single-file HTML — charts render as inline SVG or Chart.js Canvas.
 
 ## For Components and HTML (`components.md`, `html.md`)
 
-**Library:** Chart.js via CDN. Default for vanilla HTML outputs.
+**Determine stack first.** If the output is React, use Recharts. If vanilla HTML, use Chart.js. Do not mix.
 
-**React assumption flag:** If the component output is React-based, Chart.js is the wrong choice — use Recharts instead. Check before building: if the user's codebase or request implies React, swap Chart.js for Recharts and load `pf-tokens.md` for the hex values to pass as props. Recharts resolves CSS variables in some contexts but explicit hex is safer.
+---
+
+### Vanilla HTML — Chart.js (CDN)
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 ```
 
-**Standard config:**
+**Global defaults (set once at top of script):**
 ```javascript
 Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
-Chart.defaults.font.size = 12;
-Chart.defaults.color = '#43474e'; // --on-surface-variant
+Chart.defaults.font.size = 10;
+Chart.defaults.color = '#43474e';
 ```
 
-**CSS variable rule:** Chart.js does not resolve CSS variables. Always pass hex values in chart config, never `var(--viz-blue)`.
+**PF color constants:**
+```javascript
+const PF = {
+  vizBlue: '#1f40cb', vizTeal: '#0891b2', vizGreen: '#16a34a',
+  vizAmber: '#d97706', vizRed: '#dc2626', vizPurple: '#7c3aed',
+  riskLow: '#16a34a', riskMedium: '#d97706', riskHigh: '#dc2626', riskCritical: '#9f1239',
+  actionBuild: '#16a34a', actionRedeploy: '#d97706', actionHire: '#1f40cb', actionBridge: '#735471',
+};
+```
+
+**Kill-list enforcement in Chart.js config:**
+```javascript
+{
+  plugins: {
+    legend: { display: false },          // use data labels instead
+    tooltip: { enabled: true },
+  },
+  scales: {
+    x: { grid: { display: false }, border: { display: false } },
+    y: { grid: { color: '#e9eef6', lineWidth: 0.5 }, border: { display: false } },
+  }
+}
+```
 
 **Responsive behaviour:**
 - Wrap `<canvas>` in `position: relative` container with explicit height
-- Set `responsive: true` and `maintainAspectRatio: false` on every chart
+- Set `responsive: true` and `maintainAspectRatio: false`
 - Charts must reflow at ≤ 768px
 
-**Common patterns:**
+**CSS variable rule:** Chart.js does not resolve CSS variables. Always use hex from the `PF` object above.
 
-| Pattern | Implementation |
-|---------|---------------|
-| Dashboard card chart | Fixed height container (200–240px), Chart.js, minimal axes |
-| Inline sparkline | SVG, no axes, no labels, single color line |
-| Full-width chart panel | Chart.js, full container width, labeled axes |
-| Heatmap (skills matrix) | CSS grid with background-color interpolation — no chart library needed |
+---
+
+### React — Recharts (v2.x)
+
+```bash
+npm install recharts
+```
+
+**PF constants and style helpers:**
+```javascript
+const PF = {
+  vizBlue: '#1f40cb', vizTeal: '#0891b2', vizGreen: '#16a34a',
+  vizAmber: '#d97706', vizRed: '#dc2626', vizPurple: '#7c3aed',
+  riskLow: '#16a34a', riskMedium: '#d97706', riskHigh: '#dc2626', riskCritical: '#9f1239',
+  actionBuild: '#16a34a', actionRedeploy: '#d97706', actionHire: '#1f40cb', actionBridge: '#735471',
+  text: '#43474e', title: '#191c20', grid: '#e9eef6',
+};
+const TICK = { fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 10, fill: PF.text };
+const LABEL = { fontFamily: "'Plus Jakarta Sans', sans-serif", fontSize: 10, fill: PF.text };
+```
+
+**Standard horizontal bar (layout="vertical" in Recharts):**
+```jsx
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LabelList } from 'recharts';
+
+<ResponsiveContainer width="100%" height={300}>
+  <BarChart data={data} layout="vertical" margin={{ top: 20, right: 120, bottom: 20, left: 60 }}>
+    <XAxis type="number" tick={TICK} axisLine={false} tickLine={false} />
+    <YAxis type="category" dataKey="name" tick={TICK} axisLine={false} tickLine={false} width={55} />
+    <CartesianGrid vertical={false} stroke={PF.grid} strokeWidth={0.5} />
+    <Bar dataKey="value" fill={PF.vizBlue} radius={[0, 2, 2, 0]}>
+      <LabelList dataKey="value" position="right" style={LABEL} />
+    </Bar>
+  </BarChart>
+</ResponsiveContainer>
+```
+
+**Standard line chart:**
+```jsx
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, LabelList } from 'recharts';
+
+<ResponsiveContainer width="100%" height={300}>
+  <LineChart data={data} margin={{ top: 20, right: 120, bottom: 20, left: 60 }}>
+    <XAxis dataKey="period" tick={TICK} axisLine={false} tickLine={false} />
+    <YAxis tick={TICK} axisLine={false} tickLine={false} />
+    <CartesianGrid vertical={false} stroke={PF.grid} strokeWidth={0.5} />
+    <Line type="monotone" dataKey="value" stroke={PF.vizBlue} strokeWidth={2}
+          dot={{ r: 3, fill: PF.vizBlue }} activeDot={{ r: 4 }}>
+      <LabelList dataKey="value" position="right" style={LABEL} />
+    </Line>
+  </LineChart>
+</ResponsiveContainer>
+```
+
+**Kill-list enforcement rules for Recharts:**
+- Never add `<Legend />` — use `<LabelList>` for direct labels
+- Always set `axisLine={false}` and `tickLine={false}` on both axes
+- `<CartesianGrid vertical={false}>` — horizontal reference lines only, faint
+- No `animation` prop overrides unless `pf-motion.md` is loaded
+
+---
+
+**Common patterns (both stacks):**
+
+| Pattern | Stack | Implementation |
+|---------|-------|---------------|
+| Dashboard card chart | Either | Fixed height 200–240px, minimal axes, direct labels |
+| Inline sparkline | SVG | No library — `<polyline>` only, no axes, no labels |
+| Full-width panel | Either | 100% width, labeled axes, responsive |
+| Skills matrix heatmap | Vanilla | CSS grid, `background-color` from sequential palette — no library |
 
 **Motion:** Animated chart entries require `pf-motion.md` loaded. Static by default.
 
@@ -247,18 +341,207 @@ Plot area: x from 60 to 480 (width=420), y from 20 to 260 (height=240)
 - Category → x position (bar): `x = 60 + (index * barWidth) + barOffset`
 - Right label zone: x=490 to x=590 — use for endpoint labels and series names
 
-**SVG construction by chart type:**
+**SVG templates — copy, replace data, adjust coordinates using the model above.**
 
-- **Horizontal bar:** `<rect>` width proportional to value, fixed row height 28px, `<text>` value label at bar end (x = barWidth + 8), category label left of axis (x=55, text-anchor=end)
-- **Line:** `<polyline points="...">` with calculated x/y per data point, `<circle r="3">` at each point, `<text>` endpoint label at last point (x = lastX + 8)
-- **Dot plot:** `<circle cx cy r="5">` per row, `<text>` right of dot (x = dotX + 10), category label left of axis
-- **Heatmap:** `<rect>` grid, cell width = plotWidth / cols, cell height = plotHeight / rows, fill from 5-step sequential palette based on cell value
+All templates use: `viewBox="0 0 600 300"`, plot area x:60–480, y:20–260.
+Bar text vertical center formula: `textY = barY + barHeight/2 + 4`.
 
-**SVG text defaults:**
+---
+
+**Template 1 — Horizontal bar (automation risk by department)**
+
+5 rows, row height=48px, bar height=28px, bar offset=(48-28)/2=10px.
+Bar width formula: `barWidth = (value/100) * 420`. Label x: `barX + barWidth + 8`.
+
 ```svg
-font-family="'Plus Jakarta Sans', sans-serif"
-font-size="10"
-fill="#43474e"
+<svg viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;font-family:'Plus Jakarta Sans',sans-serif">
+  <text x="60" y="14" font-size="14" font-weight="600" fill="#191c20">Finance and Operations face highest automation risk</text>
+
+  <!-- Zero baseline -->
+  <line x1="60" y1="20" x2="60" y2="260" stroke="#c3c7cf" stroke-width="1"/>
+  <!-- 50% reference line: x = 60 + 0.5*420 = 270 -->
+  <line x1="270" y1="20" x2="270" y2="260" stroke="#e9eef6" stroke-width="1" stroke-dasharray="4 2"/>
+  <text x="270" y="275" font-size="9" fill="#73777f" text-anchor="middle">50%</text>
+
+  <!-- Row 0 — Finance 68%: barY=30, barWidth=0.68*420=285 -->
+  <rect x="60" y="30" width="285" height="28" fill="#dc2626" rx="2"/>
+  <text x="55" y="48" font-size="10" fill="#43474e" text-anchor="end">Finance</text>
+  <text x="353" y="48" font-size="10" fill="#43474e">68%</text>
+
+  <!-- Row 1 — Operations 62%: barY=78, barWidth=0.62*420=260 -->
+  <rect x="60" y="78" width="260" height="28" fill="#dc2626" rx="2"/>
+  <text x="55" y="96" font-size="10" fill="#43474e" text-anchor="end">Operations</text>
+  <text x="328" y="96" font-size="10" fill="#43474e">62%</text>
+
+  <!-- Row 2 — HR 45%: barY=126, barWidth=0.45*420=189 -->
+  <rect x="60" y="126" width="189" height="28" fill="#d97706" rx="2"/>
+  <text x="55" y="144" font-size="10" fill="#43474e" text-anchor="end">HR</text>
+  <text x="257" y="144" font-size="10" fill="#43474e">45%</text>
+
+  <!-- Row 3 — Technology 38%: barY=174, barWidth=0.38*420=160 -->
+  <rect x="60" y="174" width="160" height="28" fill="#d97706" rx="2"/>
+  <text x="55" y="192" font-size="10" fill="#43474e" text-anchor="end">Technology</text>
+  <text x="228" y="192" font-size="10" fill="#43474e">38%</text>
+
+  <!-- Row 4 — Sales 29%: barY=222, barWidth=0.29*420=122 -->
+  <rect x="60" y="222" width="122" height="28" fill="#16a34a" rx="2"/>
+  <text x="55" y="240" font-size="10" fill="#43474e" text-anchor="end">Sales</text>
+  <text x="190" y="240" font-size="10" fill="#43474e">29%</text>
+</svg>
+```
+
+---
+
+**Template 2 — Line chart (headcount trend)**
+
+6 data points, maxValue=600. x spacing: 420/5=84px. y formula: `y = 260 - (value/600)*240`.
+x positions: 60,144,228,312,396,480. y positions for 450,470,495,520,510,540: 80,72,62,52,56,44.
+
+```svg
+<svg viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;font-family:'Plus Jakarta Sans',sans-serif">
+  <text x="60" y="14" font-size="14" font-weight="600" fill="#191c20">Headcount grew 20% over six quarters despite Q1 dip</text>
+
+  <!-- Baseline and faint mid reference -->
+  <line x1="60" y1="260" x2="480" y2="260" stroke="#c3c7cf" stroke-width="1"/>
+  <!-- y=140 = 300 headcount = midpoint reference -->
+  <line x1="60" y1="140" x2="480" y2="140" stroke="#e9eef6" stroke-width="1"/>
+  <text x="55" y="144" font-size="9" fill="#73777f" text-anchor="end">300</text>
+  <text x="55" y="264" font-size="9" fill="#73777f" text-anchor="end">0</text>
+
+  <!-- Line -->
+  <polyline points="60,80 144,72 228,62 312,52 396,56 480,44"
+            stroke="#1f40cb" stroke-width="2" fill="none" stroke-linejoin="round"/>
+
+  <!-- Data point dots -->
+  <circle cx="60"  cy="80" r="3" fill="#1f40cb"/>
+  <circle cx="144" cy="72" r="3" fill="#1f40cb"/>
+  <circle cx="228" cy="62" r="3" fill="#1f40cb"/>
+  <circle cx="312" cy="52" r="3" fill="#1f40cb"/>
+  <circle cx="396" cy="56" r="3" fill="#1f40cb"/>
+  <circle cx="480" cy="44" r="3" fill="#1f40cb"/>
+
+  <!-- Endpoint label (right label zone x=490) -->
+  <text x="490" y="48" font-size="10" fill="#43474e">540</text>
+
+  <!-- X-axis labels -->
+  <text x="60"  y="275" font-size="10" fill="#73777f" text-anchor="middle">Q1 Y1</text>
+  <text x="144" y="275" font-size="10" fill="#73777f" text-anchor="middle">Q2</text>
+  <text x="228" y="275" font-size="10" fill="#73777f" text-anchor="middle">Q3</text>
+  <text x="312" y="275" font-size="10" fill="#73777f" text-anchor="middle">Q4</text>
+  <text x="396" y="275" font-size="10" fill="#73777f" text-anchor="middle">Q1 Y2</text>
+  <text x="480" y="275" font-size="10" fill="#73777f" text-anchor="middle">Q2</text>
+</svg>
+```
+
+---
+
+**Template 3 — Slopegraph (skill gap: current vs target)**
+
+Left column x=60 (current), right column x=480 (target). y formula: `y = 260 - (value/100)*240`.
+
+```svg
+<svg viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;font-family:'Plus Jakarta Sans',sans-serif">
+  <text x="60" y="14" font-size="14" font-weight="600" fill="#191c20">Skill gaps are widest in Cloud and ML roles</text>
+
+  <!-- Column headers -->
+  <text x="60"  y="32" font-size="10" fill="#73777f" text-anchor="middle">Current</text>
+  <text x="480" y="32" font-size="10" fill="#73777f" text-anchor="middle">Target</text>
+
+  <!-- Slope lines (current y → target y) -->
+  <!-- Data Science: 45%→80%: y=152→68 -->
+  <line x1="60" y1="152" x2="480" y2="68"  stroke="#1f40cb" stroke-width="1.5"/>
+  <!-- Cloud Arch:   30%→70%: y=188→92 -->
+  <line x1="60" y1="188" x2="480" y2="92"  stroke="#1f40cb" stroke-width="1.5"/>
+  <!-- ML Ops:       20%→60%: y=212→116 -->
+  <line x1="60" y1="212" x2="480" y2="116" stroke="#1f40cb" stroke-width="1.5"/>
+  <!-- Analytics:    60%→75%: y=116→80 -->
+  <line x1="60" y1="116" x2="480" y2="80"  stroke="#1f40cb" stroke-width="1.5"/>
+  <!-- Automation:   35%→65%: y=176→104 -->
+  <line x1="60" y1="176" x2="480" y2="104" stroke="#1f40cb" stroke-width="1.5"/>
+
+  <!-- Left dots and labels -->
+  <circle cx="60" cy="152" r="4" fill="#1f40cb"/>
+  <text x="50" y="156" font-size="10" fill="#43474e" text-anchor="end">Data Science 45%</text>
+  <circle cx="60" cy="188" r="4" fill="#1f40cb"/>
+  <text x="50" y="192" font-size="10" fill="#43474e" text-anchor="end">Cloud Arch 30%</text>
+  <circle cx="60" cy="212" r="4" fill="#1f40cb"/>
+  <text x="50" y="216" font-size="10" fill="#43474e" text-anchor="end">ML Ops 20%</text>
+  <circle cx="60" cy="116" r="4" fill="#1f40cb"/>
+  <text x="50" y="120" font-size="10" fill="#43474e" text-anchor="end">Analytics 60%</text>
+  <circle cx="60" cy="176" r="4" fill="#1f40cb"/>
+  <text x="50" y="180" font-size="10" fill="#43474e" text-anchor="end">Automation 35%</text>
+
+  <!-- Right dots and labels -->
+  <circle cx="480" cy="68"  r="4" fill="#1f40cb"/>
+  <text x="490" y="72"  font-size="10" fill="#43474e">80%</text>
+  <circle cx="480" cy="92"  r="4" fill="#1f40cb"/>
+  <text x="490" y="96"  font-size="10" fill="#43474e">70%</text>
+  <circle cx="480" cy="116" r="4" fill="#1f40cb"/>
+  <text x="490" y="120" font-size="10" fill="#43474e">60%</text>
+  <circle cx="480" cy="80"  r="4" fill="#1f40cb"/>
+  <text x="490" y="84"  font-size="10" fill="#43474e">75%</text>
+  <circle cx="480" cy="104" r="4" fill="#1f40cb"/>
+  <text x="490" y="108" font-size="10" fill="#43474e">65%</text>
+</svg>
+```
+
+---
+
+**Template 4 — Heatmap (skills matrix: 4 roles × 5 skills)**
+
+4 rows × 5 cols. Cell width=420/5=84, cell height=240/4=60. Cell x: `60 + col*84`. Cell y: `20 + row*60`.
+Cell text center: `cx = cellX + 42`, `cy = cellY + 30 + 4 = cellY + 34`. Colors from sequential palette (round to nearest 10%).
+
+```svg
+<svg viewBox="0 0 600 300" fill="none" xmlns="http://www.w3.org/2000/svg"
+     style="width:100%;font-family:'Plus Jakarta Sans',sans-serif">
+  <text x="60" y="14" font-size="14" font-weight="600" fill="#191c20">Senior roles show lower Python and SQL proficiency</text>
+
+  <!-- Cells — fill from sequential palette, text color by contrast threshold (≥60%=white, <60%=dark) -->
+  <!-- Analyst row (y=20): Python 90%, SQL 85%, Tableau 60%, Excel 95%, Stats 70% -->
+  <rect x="60"  y="20" width="84" height="60" fill="#3452d0"/><text x="102" y="54" font-size="10" fill="#ffffff" text-anchor="middle">90%</text>
+  <rect x="144" y="20" width="84" height="60" fill="#3452d0"/><text x="186" y="54" font-size="10" fill="#ffffff" text-anchor="middle">85%</text>
+  <rect x="228" y="20" width="84" height="60" fill="#7388e0"/><text x="270" y="54" font-size="10" fill="#ffffff" text-anchor="middle">60%</text>
+  <rect x="312" y="20" width="84" height="60" fill="#1f40cb"/><text x="354" y="54" font-size="10" fill="#ffffff" text-anchor="middle">95%</text>
+  <rect x="396" y="20" width="84" height="60" fill="#5e76db"/><text x="438" y="54" font-size="10" fill="#ffffff" text-anchor="middle">70%</text>
+
+  <!-- Manager row (y=80): Python 45%, SQL 70%, Tableau 80%, Excel 90%, Stats 55% -->
+  <rect x="60"  y="80" width="84" height="60" fill="#889ae5"/><text x="102" y="114" font-size="10" fill="#191c20" text-anchor="middle">45%</text>
+  <rect x="144" y="80" width="84" height="60" fill="#5e76db"/><text x="186" y="114" font-size="10" fill="#ffffff" text-anchor="middle">70%</text>
+  <rect x="228" y="80" width="84" height="60" fill="#4964d5"/><text x="270" y="114" font-size="10" fill="#ffffff" text-anchor="middle">80%</text>
+  <rect x="312" y="80" width="84" height="60" fill="#3452d0"/><text x="354" y="114" font-size="10" fill="#ffffff" text-anchor="middle">90%</text>
+  <rect x="396" y="80" width="84" height="60" fill="#7388e0"/><text x="438" y="114" font-size="10" fill="#ffffff" text-anchor="middle">55%</text>
+
+  <!-- Director row (y=140): Python 25%, SQL 40%, Tableau 65%, Excel 80%, Stats 35% -->
+  <rect x="60"  y="140" width="84" height="60" fill="#b1beef"/><text x="102" y="174" font-size="10" fill="#191c20" text-anchor="middle">25%</text>
+  <rect x="144" y="140" width="84" height="60" fill="#9cacea"/><text x="186" y="174" font-size="10" fill="#191c20" text-anchor="middle">40%</text>
+  <rect x="228" y="140" width="84" height="60" fill="#5e76db"/><text x="270" y="174" font-size="10" fill="#ffffff" text-anchor="middle">65%</text>
+  <rect x="312" y="140" width="84" height="60" fill="#4964d5"/><text x="354" y="174" font-size="10" fill="#ffffff" text-anchor="middle">80%</text>
+  <rect x="396" y="140" width="84" height="60" fill="#9cacea"/><text x="438" y="174" font-size="10" fill="#191c20" text-anchor="middle">35%</text>
+
+  <!-- VP row (y=200): Python 15%, SQL 30%, Tableau 50%, Excel 75%, Stats 20% -->
+  <rect x="60"  y="200" width="84" height="60" fill="#c6d0f5"/><text x="102" y="234" font-size="10" fill="#191c20" text-anchor="middle">15%</text>
+  <rect x="144" y="200" width="84" height="60" fill="#b1beef"/><text x="186" y="234" font-size="10" fill="#191c20" text-anchor="middle">30%</text>
+  <rect x="228" y="200" width="84" height="60" fill="#889ae5"/><text x="270" y="234" font-size="10" fill="#191c20" text-anchor="middle">50%</text>
+  <rect x="312" y="200" width="84" height="60" fill="#4964d5"/><text x="354" y="234" font-size="10" fill="#ffffff" text-anchor="middle">75%</text>
+  <rect x="396" y="200" width="84" height="60" fill="#c6d0f5"/><text x="438" y="234" font-size="10" fill="#191c20" text-anchor="middle">20%</text>
+
+  <!-- Column headers (skills) -->
+  <text x="102" y="275" font-size="10" fill="#43474e" text-anchor="middle">Python</text>
+  <text x="186" y="275" font-size="10" fill="#43474e" text-anchor="middle">SQL</text>
+  <text x="270" y="275" font-size="10" fill="#43474e" text-anchor="middle">Tableau</text>
+  <text x="354" y="275" font-size="10" fill="#43474e" text-anchor="middle">Excel</text>
+  <text x="438" y="275" font-size="10" fill="#43474e" text-anchor="middle">Stats</text>
+
+  <!-- Row headers (roles) -->
+  <text x="55" y="54"  font-size="10" fill="#43474e" text-anchor="end">Analyst</text>
+  <text x="55" y="114" font-size="10" fill="#43474e" text-anchor="end">Manager</text>
+  <text x="55" y="174" font-size="10" fill="#43474e" text-anchor="end">Director</text>
+  <text x="55" y="234" font-size="10" fill="#43474e" text-anchor="end">VP</text>
+</svg>
 ```
 
 ---
@@ -287,6 +570,4 @@ Run this before declaring any chart complete. Assume issues exist — find them.
 
 | Gap | Impact | Priority |
 |-----|--------|----------|
-| Library not finalized (component/HTML) | Chart.js used as default | Medium |
-| SVG chart templates not built | Manual SVG construction per chart | Low |
-| Sequential palette not interpolated to full scale | Heatmaps use approximated steps | Low |
+| Sequential palette uses linear RGB, not perceptual (OKLCH) | Steps may feel visually uneven at low end | Low — acceptable until a design review flags it |
